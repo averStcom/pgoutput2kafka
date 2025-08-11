@@ -1,0 +1,57 @@
+# .editorconfig
+# EditorConfig помогает всем редакторам/IDE использовать одинаковое форматирование.
+# Документация: https://editorconfig.org/
+
+root = true
+
+# --- Базовые правила по умолчанию для всех текстовых файлов ---
+[*]
+end_of_line = lf                 # LF в репозитории (Windows не мешает)
+insert_final_newline = true      # финальная пустая строка
+trim_trailing_whitespace = true  # срезать хвостовые пробелы
+charset = utf-8
+indent_style = space
+indent_size = 4                  # 4 пробела — базовый отступ для кода
+max_line_length = 120            # целевой wrap; редакторы могут переносить
+
+# --- Markdown: не режем хвостовые пробелы (они значимы для разрывов строк) ---
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+# --- YAML/JSON: общепринято 2 пробела ---
+[*.{yml,yaml,json,json5}]
+indent_size = 2
+
+# --- Kotlin (если появится): 4 + продолжение 8 ---
+[*.{kt,kts}]
+indent_size = 4
+ij_continuation_indent_size = 8
+
+# --- Java: 4 + продолжение 8; не использовать * imports ---
+[*.java]
+indent_size = 4
+ij_continuation_indent_size = 8
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_names_count_to_use_static_import_on_demand = 999
+ij_java_keep_line_breaks = true
+ij_java_wrap_long_lines = false
+
+# --- Gradle скрипты ---
+[*.{gradle,gradle.kts}]
+indent_size = 4
+ij_continuation_indent_size = 8
+
+# --- Shell/SQL/Dockerfile ---
+[*.sh]
+indent_size = 2
+
+[*.sql]
+indent_size = 4
+
+[Dockerfile]
+indent_size = 4
+
+# --- Makefile: только табы (стандарт make) ---
+[Makefile]
+indent_style = tab
