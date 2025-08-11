@@ -1,0 +1,41 @@
+# --- EOL normalization (LF everywhere in repo) ---
+* text=auto eol=lf
+
+# Явно текстовые форматы
+*.java   text eol=lf
+*.kt     text eol=lf
+*.kts    text eol=lf
+*.gradle text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.json   text eol=lf
+*.xml    text eol=lf
+*.properties text eol=lf
+*.sql    text eol=lf
+Dockerfile text eol=lf
+*.sh     text eol=lf
+*.env.example text eol=lf
+
+# Бинарники (без попыток мерджа/диффа)
+*.jar    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.pdf    binary
+*.keystore binary
+*.jks    binary
+*.p12    binary
+
+# Gradle wrapper — явно бинарь
+gradle/wrapper/gradle-wrapper.jar binary
+
+# Утилитарно: не пересобирать CRLF в hooks
+.git/hooks/* -text
+
+# (опционально) merge-стратегии для «шумных» файлов
+# gradle.lockfile можно защищать "ours", если используете, но лучше не трогать по умолчанию
+# gradle.lockfile merge=ours
+ATTR

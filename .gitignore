@@ -1,0 +1,90 @@
+# --- OS noise ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+._*
+
+# --- IDE (IntelliJ, VSCode) ---
+.idea/
+!.idea/.gitkeep
+.vscode/
+
+# IntelliJ: вместо .idea/* используем .run/ (см. ниже)
+.run/
+!.run/.gitkeep
+
+# --- Java / Gradle ---
+# ВНИМАНИЕ: не игнорировать *.jar глобально — gradle-wrapper.jar должен быть в репо
+**/build/
+**/out/
+**/.gradle/
+.gradle/
+# Кэш тестов/coverage (если появится)
+**/jacoco.exec
+**/test-results/
+**/reports/
+
+# --- Logs & temp ---
+*.log
+**/logs/
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+
+# --- Docker / Compose / локальные данные ---
+# Оверрайды для локальной разработки
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Локальные volume-данные и артефакты (оставим .keep, чтобы каталоги были видны)
+infra/postgres/data/
+!infra/postgres/data/.keep
+infra/kafka/data/
+!infra/kafka/data/.keep
+infra/zookeeper/data/
+!infra/zookeeper/data/.keep
+infra/minio/data/
+!infra/minio/data/.keep
+
+# --- Env / секреты (репо хранит только примеры) ---
+.env
+*.env
+*.env.local
+.envrc
+secrets/
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.keystore
+
+# --- OS-specific executables ---
+*.exe
+*.dll
+*.so
+*.dylib
+
+# --- Misc ---
+# Архивы и бэкапы
+*.zip
+*.tar
+*.gz
+*.tgz
+*.bz2
+*.7z
+*.bak
+*.orig
+*.rej
+
+# --- Project specifics (удобства) ---
+# Локальные скрипты/выводы
+infra/local/
+!infra/local/.keep
+
+# Генерируемые файлы (например, кодогенерация в будущем)
+generated/
+IGN
