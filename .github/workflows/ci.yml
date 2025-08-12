@@ -1,0 +1,65 @@
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build (jdk ${{ matrix.java }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        java: [ '21' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: gradle
+
+      - name: Setup Gradle (caching)
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Show Gradle & Java versions
+        run: ./gradlew -v
+
+      # На Sprint 0 держим конфиг-кэш выключенным — включим после стабилизации
+      - name: Build
+        run: ./gradlew --no-daemon --stacktrace clean build
+
+      - name: Upload test & build reports (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports-${{ matrix.os }}-jdk${{ matrix.java }}
+          path: |
+            **/build/reports/tests/**/*
+            **/build/test-results/**/*
+            build/reports/problems/**/*
+            **/build/reports/checkstyle/**/*   # появится на шаге 0.5
+            **/build/reports/spotbugs/**/*     # если добавим
+          if-no-files-found: ignore
