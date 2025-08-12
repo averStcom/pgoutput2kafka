@@ -88,3 +88,6 @@ infra/local/
 # Генерируемые файлы (например, кодогенерация в будущем)
 generated/
 IGN
+
+# Windows null-device leftovers
+infra/NUL

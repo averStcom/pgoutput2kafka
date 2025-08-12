@@ -4,6 +4,7 @@ dependencies {
     implementation(project(":common"))
     implementation(libs.slf4j.api)
     runtimeOnly(libs.logback.classic)
+    implementation("io.github.cdimascio:dotenv-java:3.0.0")
 
     implementation(libs.postgresql)     // логическая репликация (pgjdbc)
     implementation(libs.kafka.clients)  // продюсер Kafka
